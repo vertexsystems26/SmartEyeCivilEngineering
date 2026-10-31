@@ -2,35 +2,24 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   // NEXT_PUBLIC_* values are inlined at build time: set them in .env.local or
   // in the dashboard's *build* variables (Settings → Build), not here.
+  // Must match the Worker name in the Cloudflare dashboard.
   "name": "smarteyecivilengineering",
   "main": ".open-next/worker.js",
   "compatibility_date": "2026-10-23",
-  "compatibility_flags": [
-    "nodejs_compat",
-    "global_fetch_strictly_public"
-  ],
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
   "assets": {
     "directory": ".open-next/assets",
     "binding": "ASSETS",
   },
   "services": [
-    // Self-reference required by OpenNext for caching
-    {
-      "binding": "WORKER_SELF_REFERENCE",
-      "service": "sece-site"
-    },
+    // Self-reference required by OpenNext for caching: same value as "name"
+    { "binding": "WORKER_SELF_REFERENCE", "service": "smarteyecivilengineering" },
   ],
   "r2_buckets": [
     // Next.js page cache. Create it once: npx wrangler r2 bucket create sece-site-opennext-cache
-    {
-      "binding": "NEXT_INC_CACHE_R2_BUCKET",
-      "bucket_name": "sece-site-opennext-cache"
-    },
+    { "binding": "NEXT_INC_CACHE_R2_BUCKET", "bucket_name": "sece-site-opennext-cache" },
     // Public media (images, GLB models)
-    {
-      "binding": "MEDIA_BUCKET",
-      "bucket_name": "sece-storage"
-    },
+    { "binding": "MEDIA_BUCKET", "bucket_name": "sece-storage" },
   ],
   "images": {
     // next/image optimisation through Cloudflare Images
@@ -39,7 +28,5 @@
   // Single Worker deployed by Cloudflare Workers Builds from the Git repo.
   // Until launch it is built with NEXT_PUBLIC_SITE_ENV=preview (noindex);
   // non-production branches get preview URLs through `wrangler versions upload`.
-  "observability": {
-    "enabled": true
-  },
+  "observability": { "enabled": true },
 }

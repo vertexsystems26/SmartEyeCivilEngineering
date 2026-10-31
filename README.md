@@ -30,7 +30,7 @@ npm run dev                  # http://localhost:3000
 | `npm test`           | Tests unitaires (palette, contrastes WCAG)                            |
 | `npm run test:e2e`   | Playwright + axe sur un build de production (`npm run build` avant)   |
 | `npm run preview`    | Build Cloudflare et prévisualisation locale dans le runtime Workers   |
-| `npm run deploy`     | Build + déploiement manuel du Worker `sece-site`                      |
+| `npm run deploy`     | Build + déploiement manuel du Worker `smarteyecivilengineering`       |
 | `npm run upload`     | Build + envoi d'une version sans la publier (URL de prévisualisation) |
 | `npm run cf-typegen` | Génère les types des bindings Cloudflare (`cloudflare-env.d.ts`)      |
 
@@ -46,7 +46,7 @@ Toutes sont décrites dans [.env.example](.env.example). Points importants :
 ## Déploiement sur Cloudflare (Workers Builds, depuis GitHub)
 
 Chaque push sur `main` est construit et déployé par Cloudflare. Réglages du Worker
-(Workers & Pages → `sece-site` → Settings → Build) :
+(Workers & Pages → `smarteyecivilengineering` → Settings → Build) :
 
 | Réglage                      | Valeur                                                                   |
 | ---------------------------- | ------------------------------------------------------------------------ |
@@ -55,7 +55,7 @@ Chaque push sur `main` est construit et déployé par Cloudflare. Réglages du W
 | Non-production branch deploy | `npx opennextjs-cloudflare upload` (URL de prévisualisation par branche) |
 | Build variables              | `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_SITE_ENV`, `NEXT_PUBLIC_FIREBASE_*` |
 
-- Le nom du Worker dans le tableau de bord doit être identique au `name` de `wrangler.jsonc` (`sece-site`).
+- Le nom du Worker dans le tableau de bord doit être identique au `name` de `wrangler.jsonc` (`smarteyecivilengineering`).
 - Les `NEXT_PUBLIC_*` vont dans les variables **de build** (elles sont figées dans le code compilé), pas dans les variables d'exécution.
 - Jusqu'au lancement : `NEXT_PUBLIC_SITE_ENV=preview` (noindex partout). Au lancement : `production`, puis rattacher `smarteyecivilengineering.com` dans Settings → Domains & Routes.
 - Le bucket R2 du cache des pages, `sece-site-opennext-cache`, existe déjà.
