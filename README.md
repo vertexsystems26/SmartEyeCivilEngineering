@@ -22,17 +22,17 @@ npm run dev                  # http://localhost:3000
 
 ## Scripts
 
-| Commande                 | Rôle                                                                       |
-| ------------------------ | -------------------------------------------------------------------------- |
-| `npm run dev`            | Serveur de développement                                                   |
-| `npm run build`          | Build Next.js de production                                                |
-| `npm run check`          | ESLint + TypeScript + Prettier + tests unitaires                           |
-| `npm test`               | Tests unitaires (palette, contrastes WCAG)                                 |
-| `npm run test:e2e`       | Playwright + axe sur un build de production (`npm run build` avant)        |
-| `npm run preview`        | Build Cloudflare et prévisualisation locale dans le runtime Workers        |
-| `npm run deploy:preview` | Déploiement de la préproduction (`sece-site-preview`, toujours en noindex) |
-| `npm run deploy`         | Déploiement de la production (`sece-site`)                                 |
-| `npm run cf-typegen`     | Génère les types des bindings Cloudflare (`cloudflare-env.d.ts`)           |
+| Commande             | Rôle                                                                  |
+| -------------------- | --------------------------------------------------------------------- |
+| `npm run dev`        | Serveur de développement                                              |
+| `npm run build`      | Build Next.js de production                                           |
+| `npm run check`      | ESLint + TypeScript + Prettier + tests unitaires                      |
+| `npm test`           | Tests unitaires (palette, contrastes WCAG)                            |
+| `npm run test:e2e`   | Playwright + axe sur un build de production (`npm run build` avant)   |
+| `npm run preview`    | Build Cloudflare et prévisualisation locale dans le runtime Workers   |
+| `npm run deploy`     | Build + déploiement manuel du Worker `sece-site`                      |
+| `npm run upload`     | Build + envoi d'une version sans la publier (URL de prévisualisation) |
+| `npm run cf-typegen` | Génère les types des bindings Cloudflare (`cloudflare-env.d.ts`)      |
 
 ## Variables d'environnement
 
@@ -43,27 +43,22 @@ Toutes sont décrites dans [.env.example](.env.example). Points importants :
 - Les secrets de production se déclarent avec `npx wrangler secret put NOM` (jamais dans le dépôt).
 - Le jeton `CLOUDFLARE_R2_API_TOKEN` est limité à R2 : il ne permet pas de déployer.
 
-## Déploiement sur Cloudflare
+## Déploiement sur Cloudflare (Workers Builds, depuis GitHub)
 
-Une seule fois :
+Chaque push sur `main` est construit et déployé par Cloudflare. Réglages du Worker
+(Workers & Pages → `sece-site` → Settings → Build) :
 
-```bash
-npx wrangler login
-npx wrangler r2 bucket create sece-site-opennext-cache
-npx wrangler r2 bucket create sece-site-opennext-cache-preview
-```
+| Réglage                      | Valeur                                                                   |
+| ---------------------------- | ------------------------------------------------------------------------ |
+| Build command                | `npx opennextjs-cloudflare build`                                        |
+| Deploy command               | `npx opennextjs-cloudflare deploy`                                       |
+| Non-production branch deploy | `npx opennextjs-cloudflare upload` (URL de prévisualisation par branche) |
+| Build variables              | `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_SITE_ENV`, `NEXT_PUBLIC_FIREBASE_*` |
 
-Puis :
-
-```bash
-# Préproduction (*.workers.dev, noindex)
-NEXT_PUBLIC_SITE_ENV=preview npm run deploy:preview
-
-# Production
-NEXT_PUBLIC_SITE_ENV=production npm run deploy
-```
-
-Le domaine `smarteyecivilengineering.com` se rattache au Worker `sece-site` dans le tableau de bord Cloudflare (Workers → sece-site → Domains & Routes).
+- Le nom du Worker dans le tableau de bord doit être identique au `name` de `wrangler.jsonc` (`sece-site`).
+- Les `NEXT_PUBLIC_*` vont dans les variables **de build** (elles sont figées dans le code compilé), pas dans les variables d'exécution.
+- Jusqu'au lancement : `NEXT_PUBLIC_SITE_ENV=preview` (noindex partout). Au lancement : `production`, puis rattacher `smarteyecivilengineering.com` dans Settings → Domains & Routes.
+- Le bucket R2 du cache des pages, `sece-site-opennext-cache`, existe déjà.
 
 ## Structure
 
