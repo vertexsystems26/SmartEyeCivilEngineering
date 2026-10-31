@@ -1,0 +1,81 @@
+{
+  "meta": {
+    "titleTemplate": "%s | S.E.C.E – Bureau d'études structures Tunis",
+    "defaultTitle": "S.E.C.E – Bureau d'études structures Tunis",
+    "defaultDescription": "S.E.C.E, bureau d'études structures et VRD à Tunis : étude, conception et calcul de structures en béton armé et charpente métallique, expertise technique et suivi de chantier."
+  },
+  "brand": {
+    "signature": "L'ingénierie de la construction",
+    "baseline": "Étude, conception et suivi de chantier – Structures & VRD"
+  },
+  "a11y": {
+    "skipToContent": "Aller au contenu",
+    "mainNav": "Navigation principale",
+    "footerNav": "Plan du site",
+    "breadcrumb": "Fil d'Ariane",
+    "openMenu": "Ouvrir le menu",
+    "closeMenu": "Fermer le menu",
+    "homeLink": "S.E.C.E, retour à l'accueil",
+    "quickActions": "Actions rapides",
+    "external": "(nouvel onglet)"
+  },
+  "nav": {
+    "home": "Accueil",
+    "about": "À propos",
+    "services": "Services",
+    "projects": "Projets",
+    "team": "Équipe",
+    "news": "Actualités",
+    "contact": "Contact",
+    "quote": "Demande de devis",
+    "faq": "FAQ",
+    "legal": "Mentions légales",
+    "privacy": "Politique de confidentialité"
+  },
+  "header": {
+    "cta": "Demander un devis",
+    "language": "Langue",
+    "switchTo": "English"
+  },
+  "mobileBar": {
+    "call": "Appeler",
+    "whatsapp": "WhatsApp",
+    "quote": "Devis"
+  },
+  "footer": {
+    "contactTitle": "Coordonnées",
+    "sitemapTitle": "Plan du site",
+    "legalTitle": "Informations",
+    "address": "Adresse",
+    "phone": "Téléphone",
+    "mobile": "GSM",
+    "landline": "Tél. / fax",
+    "email": "E-mail",
+    "facebook": "Facebook",
+    "openMap": "Voir sur Google Maps",
+    "rights": "Tous droits réservés."
+  },
+  "notFound": {
+    "label": "Erreur 404",
+    "title": "Cette page est introuvable",
+    "text": "Le lien est peut-être erroné ou la page a été déplacée. Voici quelques points de départ :",
+    "home": "Retour à l'accueil"
+  },
+  "error": {
+    "label": "Erreur",
+    "title": "Un problème est survenu",
+    "text": "Veuillez réessayer dans quelques instants. Si le problème persiste, contactez-nous par téléphone.",
+    "retry": "Réessayer"
+  },
+  "home": {
+    "eyebrow": "L'ingénierie de la construction",
+    "title": "Bureau d'études structures à Tunis, de l'étude au suivi de chantier",
+    "subtitle": "Béton armé, charpente métallique, VRD, expertise technique et suivi de chantier.",
+    "ctaPrimary": "Demander un devis",
+    "ctaSecondary": "Découvrir nos projets",
+    "frameAlt": "Ossature de structure en béton armé : poteaux, poutres et fondations, dessinée comme un plan d'ingénieur."
+  },
+  "placeholder": {
+    "soon": "Contenu en préparation : cette page sera complétée prochainement."
+  }
+}

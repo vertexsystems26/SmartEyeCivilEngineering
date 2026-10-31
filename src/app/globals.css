@@ -1,0 +1,202 @@
+@import "tailwindcss";
+@import "../styles/tokens.css";
+
+/*
+ * Tailwind theme: the default palette is removed so that only S.E.C.E
+ * tokens can be used (bg-sand-100, text-ink, border-line…).
+ */
+@theme inline {
+  --color-*: initial;
+  --color-sand-100: var(--sand-100);
+  --color-mist-200: var(--mist-200);
+  --color-sage-300: var(--sage-300);
+  --color-slate-500: var(--slate-500);
+  --color-pine-600: var(--pine-600);
+  --color-pine-700: var(--pine-700);
+  --color-ink: var(--ink);
+  --color-deep: var(--deep);
+  --color-paper: var(--paper);
+  --color-line: var(--line);
+  --color-transparent: transparent;
+  --color-current: currentColor;
+
+  --font-display: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
+
+  --text-h1: var(--fs-h1);
+  --text-h2: var(--fs-h2);
+  --text-h3: var(--fs-h3);
+  --text-lead: var(--fs-lead);
+  --text-body: var(--fs-body);
+  --text-small: var(--fs-small);
+  --text-label: var(--fs-label);
+
+  --radius-control: var(--radius-control);
+  --radius-card: var(--radius-card);
+  --radius-large: var(--radius-large);
+
+  --shadow-sm: var(--shadow-sm);
+  --shadow-md: var(--shadow-md);
+  --shadow-lg: var(--shadow-lg);
+
+  --ease-out: var(--ease-out);
+  --container-site: var(--container-max);
+}
+
+@keyframes menu-item-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+    scroll-padding-top: calc(var(--header-h) + 16px);
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-sans);
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    -webkit-font-smoothing: antialiased;
+    min-height: 100dvh;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 650;
+    letter-spacing: var(--tracking-display);
+    line-height: 1.08;
+    text-wrap: balance;
+  }
+
+  h1 {
+    font-size: var(--fs-h1);
+    font-weight: 700;
+  }
+  h2 {
+    font-size: var(--fs-h2);
+  }
+  h3 {
+    font-size: var(--fs-h3);
+    line-height: 1.2;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  a {
+    color: inherit;
+    text-underline-offset: 0.2em;
+  }
+
+  ::selection {
+    background: var(--pine-600);
+    color: var(--paper);
+  }
+
+  /* Keyboard focus: 2px ink ring, 2px offset over a paper halo */
+  :focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 4px var(--paper);
+    border-radius: 4px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  .container-site {
+    width: 100%;
+    max-width: calc(var(--container-max) + 2 * var(--gutter));
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+  }
+
+  .section {
+    padding-block: var(--section-pad);
+  }
+
+  /* Mono label: section numbers, technical data, eyebrows */
+  .label-mono {
+    font-family: var(--font-mono);
+    font-size: var(--fs-label);
+    font-weight: 500;
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+    line-height: 1.4;
+  }
+
+  .measure {
+    max-width: var(--measure);
+  }
+
+  /* Engineering-drawing grid ("plan d'ingénieur") */
+  .blueprint-grid {
+    background-image:
+      linear-gradient(var(--grid-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+    background-size: 24px 24px;
+    background-position: -1px -1px;
+  }
+
+  .link {
+    color: var(--pine-700);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    transition: color var(--dur-micro) var(--ease-out);
+  }
+  .link:hover {
+    color: var(--ink);
+  }
+
+  /* Mobile menu: lock page scroll, cascade the links in */
+  html:has(dialog.mobile-menu[open]) {
+    overflow: hidden;
+  }
+  .mobile-menu[open] .mobile-menu-item {
+    animation: menu-item-in 500ms var(--ease-out) both;
+    animation-delay: calc(60ms + var(--i, 0) * 50ms);
+  }
+
+  .skip-link {
+    position: absolute;
+    inset-inline-start: var(--gutter);
+    top: 12px;
+    z-index: 100;
+    padding: 12px 18px;
+    border-radius: var(--radius-control);
+    background: var(--ink);
+    color: var(--paper);
+    font-weight: 600;
+    transform: translateY(-200%);
+    transition: transform var(--dur-micro) var(--ease-out);
+  }
+  .skip-link:focus-visible {
+    transform: translateY(0);
+  }
+}

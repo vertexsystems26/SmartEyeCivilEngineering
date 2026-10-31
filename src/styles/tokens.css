@@ -1,0 +1,80 @@
+/*
+ * S.E.C.E design tokens.
+ *
+ * The only hex values allowed anywhere in src/ are the nine below
+ * (five imposed colours + four accessibility-driven derivatives).
+ * tests/unit/palette.test.ts enforces it. Translucent variants are built
+ * with color-mix() from these tokens, never with raw rgba().
+ */
+:root {
+  /* Palette — imposed */
+  --sand-100: #dcded6; /* page background */
+  --mist-200: #ced0c3; /* alternate sections, secondary surfaces, hover */
+  --sage-300: #b4bab1; /* borders, separators, blueprint grid — never text */
+  --slate-500: #859393; /* icons, decoration — never body text */
+  --pine-600: #5d726f; /* brand: primary buttons, accents, text ≥ 24px on sand */
+
+  /* Palette — derived (contrast) */
+  --ink: #1c2625; /* body text, 11.4:1 on sand */
+  --pine-700: #4a5c5a; /* links, small brand text, button hover, 5.2:1 on sand */
+  --deep: #2a3634; /* dark sections, footer */
+  --paper: #f2f3ef; /* raised cards, form fields, logo container */
+
+  /* Semantic aliases */
+  --bg: var(--sand-100);
+  --bg-alt: var(--mist-200);
+  --surface: var(--paper);
+  --text: var(--ink);
+  --text-muted: var(--pine-700);
+  --brand: var(--pine-600);
+  --brand-strong: var(--pine-700);
+  --line: color-mix(in srgb, var(--sage-300) 60%, transparent);
+  --line-strong: var(--sage-300);
+  --grid-line: color-mix(in srgb, var(--sage-300) 25%, transparent);
+
+  /* Shadows — tinted with --ink */
+  --shadow-sm: 0 1px 2px color-mix(in srgb, var(--ink) 6%, transparent);
+  --shadow-md:
+    0 1px 2px color-mix(in srgb, var(--ink) 6%, transparent),
+    0 12px 32px -12px color-mix(in srgb, var(--ink) 18%, transparent);
+  --shadow-lg:
+    0 2px 4px color-mix(in srgb, var(--ink) 8%, transparent),
+    0 24px 48px -16px color-mix(in srgb, var(--ink) 26%, transparent);
+
+  /* Radii — never above 28px */
+  --radius-control: 12px;
+  --radius-card: 16px;
+  --radius-large: 24px;
+  --radius-pill: 9999px;
+
+  /* Layout */
+  --container-max: 1280px;
+  --gutter: 24px;
+  --section-pad: clamp(72px, 10vw, 140px);
+  --header-h: 72px;
+  --header-h-compact: 60px;
+  --measure: 68ch;
+
+  /* Typography scale (fluid) */
+  --fs-h1: clamp(2.5rem, 1.5rem + 4vw, 5rem);
+  --fs-h2: clamp(2rem, 1.4rem + 2.4vw, 3.25rem);
+  --fs-h3: clamp(1.375rem, 1.15rem + 0.9vw, 1.75rem);
+  --fs-lead: clamp(1.125rem, 1.05rem + 0.35vw, 1.3125rem);
+  --fs-body: clamp(1.0625rem, 1.03rem + 0.15vw, 1.125rem);
+  --fs-small: 0.9375rem;
+  --fs-label: 0.75rem;
+  --lh-body: 1.65;
+  --tracking-display: -0.02em;
+  --tracking-label: 0.08em;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-micro: 200ms;
+  --dur-enter: 600ms;
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --gutter: 32px;
+  }
+}

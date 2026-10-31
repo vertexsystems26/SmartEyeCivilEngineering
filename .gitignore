@@ -1,0 +1,44 @@
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
+
+# testing
+/coverage
+/playwright-report
+/test-results
+/blob-report
+/.lighthouseci
+
+# next.js
+/.next/
+/out/
+/build
+
+# cloudflare / opennext
+/.open-next
+/.wrangler
+.dev.vars*
+!.dev.vars.example
+cloudflare-env.d.ts
+
+# misc
+.DS_Store
+Thumbs.db
+*.pem
+
+# debug
+npm-debug.log*
+.pnpm-debug.log*
+
+# env files: secrets never committed, the example is
+.env*
+!.env.example
+
+# firebase service account keys
+*-firebase-adminsdk-*.json
+service-account*.json
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts

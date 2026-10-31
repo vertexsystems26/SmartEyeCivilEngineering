@@ -1,0 +1,40 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  // NEXT_PUBLIC_* values are inlined at build time: set them in .env.local or
+  // in the CI environment before `npm run build:cf`, not here.
+  "name": "sece-site",
+  "main": ".open-next/worker.js",
+  "compatibility_date": "2026-10-23",
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS",
+  },
+  "services": [
+    // Self-reference required by OpenNext for caching
+    { "binding": "WORKER_SELF_REFERENCE", "service": "sece-site" },
+  ],
+  "r2_buckets": [
+    // Next.js page cache. Create it once: npx wrangler r2 bucket create sece-site-opennext-cache
+    { "binding": "NEXT_INC_CACHE_R2_BUCKET", "bucket_name": "sece-site-opennext-cache" },
+    // Public media (images, GLB models)
+    { "binding": "MEDIA_BUCKET", "bucket_name": "sece-storage" },
+  ],
+  "images": {
+    // next/image optimisation through Cloudflare Images
+    "binding": "IMAGES",
+  },
+  "observability": { "enabled": true },
+  "env": {
+    // Preview deployment on workers.dev (built with NEXT_PUBLIC_SITE_ENV=preview → noindex)
+    "preview": {
+      "name": "sece-site-preview",
+      "services": [{ "binding": "WORKER_SELF_REFERENCE", "service": "sece-site-preview" }],
+      "r2_buckets": [
+        { "binding": "NEXT_INC_CACHE_R2_BUCKET", "bucket_name": "sece-site-opennext-cache-preview" },
+        { "binding": "MEDIA_BUCKET", "bucket_name": "sece-storage" },
+      ],
+      "images": { "binding": "IMAGES" },
+    },
+  },
+}

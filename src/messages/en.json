@@ -1,0 +1,81 @@
+{
+  "meta": {
+    "titleTemplate": "%s | S.E.C.E – Structural Engineering Firm, Tunis",
+    "defaultTitle": "S.E.C.E – Structural Engineering Firm, Tunis",
+    "defaultDescription": "S.E.C.E, structural and civil engineering firm in Tunis: design and calculation of reinforced concrete and steel structures, technical assessments and site supervision."
+  },
+  "brand": {
+    "signature": "Construction engineering",
+    "baseline": "Design, engineering and site supervision – Structures & civil works"
+  },
+  "a11y": {
+    "skipToContent": "Skip to content",
+    "mainNav": "Main navigation",
+    "footerNav": "Site map",
+    "breadcrumb": "Breadcrumb",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "homeLink": "S.E.C.E, back to home page",
+    "quickActions": "Quick actions",
+    "external": "(opens in a new tab)"
+  },
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "services": "Services",
+    "projects": "Projects",
+    "team": "Team",
+    "news": "News",
+    "contact": "Contact",
+    "quote": "Request a quote",
+    "faq": "FAQ",
+    "legal": "Legal notice",
+    "privacy": "Privacy policy"
+  },
+  "header": {
+    "cta": "Request a quote",
+    "language": "Language",
+    "switchTo": "Français"
+  },
+  "mobileBar": {
+    "call": "Call",
+    "whatsapp": "WhatsApp",
+    "quote": "Quote"
+  },
+  "footer": {
+    "contactTitle": "Contact details",
+    "sitemapTitle": "Site map",
+    "legalTitle": "Information",
+    "address": "Address",
+    "phone": "Phone",
+    "mobile": "Mobile",
+    "landline": "Phone / fax",
+    "email": "Email",
+    "facebook": "Facebook",
+    "openMap": "View on Google Maps",
+    "rights": "All rights reserved."
+  },
+  "notFound": {
+    "label": "Error 404",
+    "title": "This page could not be found",
+    "text": "The link may be wrong or the page may have moved. Here are a few places to start:",
+    "home": "Back to home page"
+  },
+  "error": {
+    "label": "Error",
+    "title": "Something went wrong",
+    "text": "Please try again in a moment. If the problem persists, call us.",
+    "retry": "Try again"
+  },
+  "home": {
+    "eyebrow": "Construction engineering",
+    "title": "Structural engineering firm in Tunis, from design to site supervision",
+    "subtitle": "Reinforced concrete, steel structures, civil works, technical assessments and site supervision.",
+    "ctaPrimary": "Request a quote",
+    "ctaSecondary": "Explore our projects",
+    "frameAlt": "Reinforced concrete structural frame: columns, beams and footings, drawn like an engineering plan."
+  },
+  "placeholder": {
+    "soon": "Content in preparation: this page will be completed soon."
+  }
+}
