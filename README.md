@@ -59,6 +59,47 @@ Chaque push sur `main` est construit et déployé par Cloudflare. Réglages du W
 - Les `NEXT_PUBLIC_*` vont dans les variables **de build** (elles sont figées dans le code compilé), pas dans les variables d'exécution.
 - Jusqu'au lancement : `NEXT_PUBLIC_SITE_ENV=preview` (noindex partout). Au lancement : `production`, puis rattacher `smarteyecivilengineering.com` dans Settings → Domains & Routes.
 - Le bucket R2 du cache des pages, `sece-site-opennext-cache`, existe déjà.
+- **Variables d'exécution** (Settings → Variables and Secrets, type _Secret_) nécessaires à la médiathèque :
+  `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY`, `R2_ENDPOINT`, `R2_PUBLIC_BUCKET`.
+
+## Back-office (`/admin`)
+
+Back-office sur mesure : Firebase Authentication (comptes), Firestore (contenus, rôles), R2 (fichiers).
+Guide d'utilisation pour le client : page **Aide** dans l'administration.
+
+### Mise en service (une seule fois)
+
+1. **Règles Firestore** : console Firebase → Firestore Database → Règles → coller [firestore.rules](firestore.rules) → Publier.
+   Sans cette étape, toute lecture ou écriture depuis l'admin est refusée.
+2. **Domaines autorisés** : console Firebase → Authentication → Paramètres → Domaines autorisés → ajouter
+   `smarteyecivilengineering.com` et l'adresse `*.workers.dev` de la préproduction (nécessaire pour le lien de confirmation d'e-mail).
+3. **Premier administrateur** : ouvrir `/admin/inscription`, créer le compte avec `smarteyecivilengineering@gmail.com`,
+   cliquer sur le lien de confirmation reçu, puis se connecter. Cette adresse devient administrateur automatiquement
+   (règle `isBootstrapOwner` de `firestore.rules`).
+4. **Données de référence** : sur le tableau de bord, bouton « Importer les données de référence » (services, projets,
+   catégories, page À propos, 6 brouillons d'articles). Les contenus existants ne sont jamais écrasés.
+5. **Autres personnes** : menu Utilisateurs et rôles → inviter l'adresse avec un rôle, puis lui envoyer le lien `/admin/inscription`.
+
+### Rôles
+
+| Rôle           | Accès                                                       |
+| -------------- | ----------------------------------------------------------- |
+| Administrateur | Tout, y compris utilisateurs et configuration               |
+| Éditeur        | Projets, services, actualités, catégories, À propos, médias |
+| Commercial     | Messages et demandes de devis (phase 3)                     |
+
+Les droits sont appliqués par les règles Firestore (côté Google) et vérifiés à nouveau par les routes `/api/admin/*`.
+
+### Fonctionnement
+
+- **Schémas** : chaque type de contenu est décrit une fois dans `src/admin/schemas/` (champs, onglets, aide). L'éditeur, les
+  listes, la validation et les indicateurs de traduction en découlent. Ajouter un champ = ajouter une ligne au schéma.
+- **Publication** : brouillon / publié. À chaque enregistrement : une version (historique et restauration), une ligne du
+  journal d'audit, et l'appel à `/api/admin/revalidate` qui rafraîchit les pages concernées.
+- **Brouillon local** : les saisies non enregistrées sont conservées dans le navigateur et proposées à la réouverture.
+- **Médias** : envoi par `/api/admin/media` (extension, signature réelle du fichier et poids vérifiés ; SVG refusé), stockage
+  R2 sous une clé contenant l'empreinte du fichier, diffusion par `/media/…` avec cache d'un an. Doublons détectés par empreinte.
+- **Texte riche** : stocké en JSON (Tiptap), jamais en HTML : le site public le rend avec ses propres composants.
 
 ## Structure
 
@@ -88,7 +129,7 @@ tests/e2e                parcours, hreflang, accessibilité (axe)
 
 - [x] Phase 0 – Cadrage
 - [x] Phase 1 – Fondations (tokens, polices, i18n, mise en page, composants, tests, CI, build Cloudflare)
-- [ ] Phase 2 – Back-office et données (Firestore, Firebase Auth, médias R2, seed)
+- [x] Phase 2 – Back-office et données (Firestore, Firebase Auth, médias R2, seed) — reste : réception des messages et devis (avec les formulaires, phase 3), publication planifiée, double authentification
 - [ ] Phase 3 – Pages publiques
 - [ ] Phase 4 – Projets et 3D
 - [ ] Phase 5 – Animations

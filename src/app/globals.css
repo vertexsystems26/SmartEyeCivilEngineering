@@ -174,6 +174,58 @@
     color: var(--ink);
   }
 
+  /* Rich text (CMS content and the back-office editor) */
+  .rich-text > * + * {
+    margin-top: 0.85em;
+  }
+  .rich-text h2 {
+    font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem);
+    margin-top: 1.4em;
+  }
+  .rich-text h3 {
+    font-size: clamp(1.2rem, 1.1rem + 0.5vw, 1.4rem);
+    margin-top: 1.2em;
+  }
+  .rich-text ul,
+  .rich-text ol {
+    padding-inline-start: 1.4em;
+  }
+  .rich-text ul {
+    list-style: disc;
+  }
+  .rich-text ol {
+    list-style: decimal;
+  }
+  .rich-text li + li {
+    margin-top: 0.3em;
+  }
+  .rich-text li::marker {
+    color: var(--pine-600);
+  }
+  .rich-text blockquote {
+    border-inline-start: 3px solid var(--pine-600);
+    padding-inline-start: 1em;
+    color: var(--pine-700);
+  }
+  .rich-text a {
+    color: var(--pine-700);
+    text-decoration: underline;
+  }
+  .rich-text code {
+    font-family: var(--font-mono);
+    font-size: 0.88em;
+    background: var(--mist-200);
+    padding: 0.1em 0.35em;
+    border-radius: 4px;
+  }
+  .rich-text .is-editor-empty:first-child::before {
+    content: attr(data-placeholder);
+    color: var(--pine-700);
+    float: left;
+    height: 0;
+    pointer-events: none;
+  }
+
   /* Mobile menu: lock page scroll, cascade the links in */
   html:has(dialog.mobile-menu[open]) {
     overflow: hidden;
